@@ -1,4 +1,4 @@
-const CACHE_NAME = 'jonathans-faste-v1';
+﻿const CACHE_NAME = 'jonathans-faste-v3';
 const CORE_ASSETS = ['/', '/index.html', '/manifest.json'];
 
 self.addEventListener('install', (event) => {
@@ -34,3 +34,4 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
+

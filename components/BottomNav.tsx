@@ -44,7 +44,7 @@ const items: { id: TabId; label: string }[] = [
 
 export const BottomNav: React.FC<Props> = ({ active, onChange }) => (
   <nav className="fixed bottom-0 left-0 right-0 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-t border-slate-200 dark:border-slate-800 safe-bottom z-40">
-    <div className="max-w-lg mx-auto grid grid-cols-3">
+    <div className="w-full grid grid-cols-3">
       {items.map((it) => {
         const isActive = active === it.id;
         return (

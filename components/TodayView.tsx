@@ -152,7 +152,7 @@ export const TodayView: React.FC<Props> = ({
       <WeekStrip sessions={sessions} activeStart={activeSession?.startTime || null} />
 
       {/* Main timer card */}
-      <section className="bg-white dark:bg-slate-800 rounded-3xl p-5 shadow-sm">
+      <section className="bg-white dark:bg-slate-800 rounded-3xl p-3 sm:p-5 shadow-sm">
         <div className="flex justify-center">
           <div className={activeSession && !goalReached ? 'pulse-ring rounded-full' : ''}>
             <CircularProgress
@@ -169,7 +169,7 @@ export const TodayView: React.FC<Props> = ({
                     <div className="text-sm text-slate-500 dark:text-slate-400 font-medium">
                       {goalReached ? 'Mål nået!' : `Tilbage (${pctRemaining}%)`}
                     </div>
-                    <div className="text-[40px] leading-none font-extrabold tabular-nums text-slate-900 dark:text-white mt-1">
+                    <div className="text-[clamp(28px,9vw,40px)] leading-none font-extrabold tabular-nums text-slate-900 dark:text-white mt-1 whitespace-nowrap">
                       {goalReached ? `${elapsed.h}:${elapsed.m}:${elapsed.s}` : `${h}:${m}:${s}`}
                     </div>
                     <div className="mt-3 flex items-center gap-1.5 bg-brand-50 dark:bg-slate-900/50 px-3 py-1.5 rounded-full">
@@ -186,7 +186,7 @@ export const TodayView: React.FC<Props> = ({
                     </div>
                     <button
                       onClick={onOpenProtocolPicker}
-                      className="text-5xl font-extrabold text-slate-900 dark:text-white leading-none active:scale-95"
+                      className="text-[clamp(32px,11vw,48px)] font-extrabold text-slate-900 dark:text-white leading-none active:scale-95"
                     >
                       {selectedProtocol.name}
                     </button>

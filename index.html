@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="da">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#6B1220" />
+    <meta name="description" content="Jonathans Faste App - din personlige faste-tracker" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Faste" />
+    <title>Jonathans Faste App</title>
+    <link rel="manifest" href="/manifest.json" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                50: '#fdf2f4',
+                100: '#fce7ea',
+                200: '#f9d0d8',
+                300: '#f3a9b8',
+                400: '#e97591',
+                500: '#dc4a6c',
+                600: '#c72b52',
+                700: '#a41e42',
+                800: '#6B1220',
+                900: '#520d19'
+              },
+              accent: {
+                500: '#FF4E2B',
+                600: '#e63e1e'
+              },
+              ink: {
+                DEFAULT: '#0a0a0a',
+                700: '#1f1f1f',
+                500: '#4b5563'
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+              display: ['Inter', 'system-ui', 'sans-serif']
+            }
+          }
+        }
+      };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      html, body, #root {
+        height: 100%;
+        width: 100%;
+        overscroll-behavior: none;
+      }
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        -webkit-tap-highlight-color: transparent;
+      }
+      /* Safe-area padding for iOS */
+      .safe-top {
+        padding-top: env(safe-area-inset-top);
+      }
+      .safe-bottom {
+        padding-bottom: env(safe-area-inset-bottom);
+      }
+      /* Hide scrollbar but allow scroll */
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      @keyframes fadein {
+        from { opacity: 0; transform: translateY(8px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fadein { animation: fadein 0.3s ease-out; }
+
+      @keyframes pulse-ring {
+        0% { box-shadow: 0 0 0 0 rgba(255, 78, 43, 0.55); }
+        70% { box-shadow: 0 0 0 22px rgba(255, 78, 43, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 78, 43, 0); }
+      }
+      .pulse-ring { animation: pulse-ring 2s ease-out infinite; }
+
+      /* Grain/noise texture overlay for hero sections */
+      .hero-grain {
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-grain::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image:
+          radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+        background-size: 3px 3px;
+        mix-blend-mode: overlay;
+        pointer-events: none;
+      }
+
+      @keyframes progress-shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+      .shimmer {
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
+        background-size: 200% 100%;
+        animation: progress-shimmer 2s linear infinite;
+      }
+
+      /* Large display typography */
+      .display-title {
+        font-weight: 900;
+        letter-spacing: -0.035em;
+        line-height: 1.05;
+      }
+    </style>
+    <script type="importmap">
+      {
+        "imports": {
+          "react/": "https://esm.sh/react@18.3.1/",
+          "react": "https://esm.sh/react@18.3.1",
+          "react-dom/": "https://esm.sh/react-dom@18.3.1/",
+          "react-dom": "https://esm.sh/react-dom@18.3.1"
+        }
+      }
+    </script>
+  </head>
+  <body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 transition-colors">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+  </body>
+</html>

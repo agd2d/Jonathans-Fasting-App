@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface Props {
   score: number; // 0..100
@@ -7,6 +7,20 @@ interface Props {
 
 /** Halvcirkel-gauge til protein score. */
 export const ProteinScoreGauge: React.FC<Props> = ({ score, size = 220 }) => {
+  const [isDark, setIsDark] = useState(
+    typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
+  );
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const root = document.documentElement;
+    const update = () => setIsDark(root.classList.contains('dark'));
+    update();
+    const mo = new MutationObserver(update);
+    mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+    return () => mo.disconnect();
+  }, []);
+  const trackColor = isDark ? '#334155' : '#f1f5f9';
+
   const clamped = Math.max(0, Math.min(100, score));
   const strokeWidth = 14;
   const radius = (size - strokeWidth) / 2;
@@ -23,7 +37,7 @@ export const ProteinScoreGauge: React.FC<Props> = ({ score, size = 220 }) => {
         <path
           d={`M ${strokeWidth / 2} ${cy} A ${radius} ${radius} 0 0 1 ${size - strokeWidth / 2} ${cy}`}
           fill="none"
-          stroke="#f1f5f9"
+          stroke={trackColor}
           strokeWidth={strokeWidth}
           strokeLinecap="round"
         />

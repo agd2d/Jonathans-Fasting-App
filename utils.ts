@@ -28,7 +28,9 @@ export function formatHoursMinutes(ms: number): string {
 
 export function formatClock(ts: number): string {
   const d = new Date(ts);
-  return d.toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  return `${hh}:${mm}`;
 }
 
 export function formatClockFromString(hhmm: string): string {
@@ -42,9 +44,10 @@ export function formatDayShort(ts: number): string {
 
 export function formatDayAndClock(ts: number): string {
   const d = new Date(ts);
-  const weekday = d.toLocaleDateString('da-DK', { weekday: 'short' });
-  const clock = d.toLocaleTimeString('da-DK', { hour: '2-digit', minute: '2-digit' });
-  return `${capitalize(weekday)}, ${clock}`;
+  const weekday = d.toLocaleDateString('da-DK', { weekday: 'short' }).replace('.', '');
+  const hh = String(d.getHours()).padStart(2, '0');
+  const mm = String(d.getMinutes()).padStart(2, '0');
+  return `${capitalize(weekday)} ${hh}:${mm}`;
 }
 
 function capitalize(str: string): string {

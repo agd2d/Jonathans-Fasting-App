@@ -30,6 +30,9 @@ export const CircularProgress: React.FC<Props> = ({
 }) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const [size, setSize] = useState(maxSize);
+  const [isDark, setIsDark] = useState(
+    typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
+  );
 
   useEffect(() => {
     const el = wrapperRef.current;
@@ -45,6 +48,18 @@ export const CircularProgress: React.FC<Props> = ({
     ro.observe(el);
     return () => ro.disconnect();
   }, [maxSize]);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const root = document.documentElement;
+    const update = () => setIsDark(root.classList.contains('dark'));
+    update();
+    const mo = new MutationObserver(update);
+    mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+    return () => mo.disconnect();
+  }, []);
+
+  const trackColor = isDark ? '#334155' : '#f1f5f9'; // slate-700 / slate-100
 
   // Scale stroke and marker sizes proportionally to size
   const stroke = Math.max(10, Math.round((baseStroke * size) / maxSize));
@@ -67,7 +82,7 @@ export const CircularProgress: React.FC<Props> = ({
         style={{ width: size, height: size }}
       >
         <svg width={size} height={size} className="-rotate-90">
-          <circle cx={cx} cy={cy} r={radius} stroke="#f1f5f9" strokeWidth={stroke} fill="transparent" />
+          <circle cx={cx} cy={cy} r={radius} stroke={trackColor} strokeWidth={stroke} fill="transparent" />
           <circle
             cx={cx}
             cy={cy}
@@ -97,8 +112,8 @@ export const CircularProgress: React.FC<Props> = ({
                 isActive
                   ? 'bg-accent-500 text-white shadow-lg scale-110'
                   : passed
-                    ? 'bg-white text-slate-900 border border-slate-200'
-                    : 'bg-white text-slate-400 border border-slate-200'
+                    ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-600'
+                    : 'bg-white dark:bg-slate-700 text-slate-400 dark:text-slate-400 border border-slate-200 dark:border-slate-600'
               }`}
               style={{
                 width: markerSize,
@@ -113,7 +128,7 @@ export const CircularProgress: React.FC<Props> = ({
         })}
 
         <div
-          className="absolute text-xs font-bold text-slate-700 bg-slate-100 rounded-full flex items-center justify-center border-2 border-white shadow"
+          className="absolute text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-600 rounded-full flex items-center justify-center border-2 border-white dark:border-slate-800 shadow"
           style={{
             width: markerSize + 8,
             height: markerSize + 8,

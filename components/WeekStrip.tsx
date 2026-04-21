@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FastSession } from '../types';
 import { isoFromDate, MS_PER_HOUR } from '../utils';
 
@@ -12,6 +12,20 @@ interface Props {
  * Sidste kolonne er i dag (højrekolonne).
  */
 export const WeekStrip: React.FC<Props> = ({ sessions, activeStart }) => {
+  const [isDark, setIsDark] = useState(
+    typeof document !== 'undefined' && document.documentElement.classList.contains('dark')
+  );
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const root = document.documentElement;
+    const update = () => setIsDark(root.classList.contains('dark'));
+    update();
+    const mo = new MutationObserver(update);
+    mo.observe(root, { attributes: true, attributeFilter: ['class'] });
+    return () => mo.disconnect();
+  }, []);
+  const trackColor = isDark ? '#334155' : '#e5e7eb';
+
   const days: { date: Date; iso: string }[] = [];
   const now = new Date();
   for (let i = 6; i >= 0; i--) {
@@ -45,7 +59,8 @@ export const WeekStrip: React.FC<Props> = ({ sessions, activeStart }) => {
         const hours = minutes / 60;
         const pct = Math.min(1, hours / 16); // 16t = fuld ring
         const weekday = date
-          .toLocaleDateString('en-US', { weekday: 'short' })
+          .toLocaleDateString('da-DK', { weekday: 'short' })
+          .replace('.', '')
           .toUpperCase();
         const size = 28;
         const radius = (size - 3) / 2;
@@ -66,7 +81,7 @@ export const WeekStrip: React.FC<Props> = ({ sessions, activeStart }) => {
                   cx={size / 2}
                   cy={size / 2}
                   r={radius}
-                  stroke="#e5e7eb"
+                  stroke={trackColor}
                   strokeWidth={2}
                   fill="transparent"
                 />

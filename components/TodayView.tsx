@@ -128,23 +128,23 @@ export const TodayView: React.FC<Props> = ({
   return (
     <div className="pb-32 px-4 pt-3 animate-fadein space-y-4">
       {/* Top header */}
-      <div className="grid grid-cols-[44px_1fr_44px] items-center">
+      <div className="grid grid-cols-[48px_1fr_48px] items-center">
         <button
           onClick={onOpenProtocolPicker}
-          className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 active:scale-95"
+          className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 active:scale-95"
           aria-label="Vælg protokol"
         >
-          <Icons.Check className="w-5 h-5" />
+          <Icons.Check className="w-6 h-6" />
         </button>
-        <h2 className="text-center font-bold text-slate-900 dark:text-white">
+        <h2 className="text-center font-extrabold text-lg text-slate-900 dark:text-white">
           {activeSession ? "You're fasting!" : 'Klar til at faste?'}
         </h2>
         <button
           onClick={onOpenMealLogger}
-          className="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-brand-800 active:scale-95"
+          className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-brand-800 active:scale-95"
           aria-label="Log måltid"
         >
-          <Icons.Plus className="w-5 h-5" strokeWidth={2.5} />
+          <Icons.Plus className="w-6 h-6" strokeWidth={2.5} />
         </button>
       </div>
 
@@ -166,31 +166,31 @@ export const TodayView: React.FC<Props> = ({
               <div className="flex flex-col items-center">
                 {activeSession ? (
                   <>
-                    <div className="text-sm text-slate-500 dark:text-slate-400 font-medium">
+                    <div className="text-base text-slate-500 dark:text-slate-400 font-semibold">
                       {goalReached ? 'Mål nået!' : `Tilbage (${pctRemaining}%)`}
                     </div>
-                    <div className="text-[clamp(28px,9vw,40px)] leading-none font-extrabold tabular-nums text-slate-900 dark:text-white mt-1 whitespace-nowrap">
+                    <div className="text-[clamp(36px,12vw,56px)] leading-none font-extrabold tabular-nums text-slate-900 dark:text-white mt-2 whitespace-nowrap">
                       {goalReached ? `${elapsed.h}:${elapsed.m}:${elapsed.s}` : `${h}:${m}:${s}`}
                     </div>
-                    <div className="mt-3 flex items-center gap-1.5 bg-brand-50 dark:bg-slate-900/50 px-3 py-1.5 rounded-full">
-                      <span className="text-accent-500 text-sm">{currentStage.emoji}</span>
-                      <span className="text-xs font-bold text-brand-800 dark:text-brand-300">
+                    <div className="mt-3 flex items-center gap-2 bg-brand-50 dark:bg-slate-900/50 px-4 py-2 rounded-full">
+                      <span className="text-accent-500 text-base">{currentStage.emoji}</span>
+                      <span className="text-sm font-extrabold text-brand-800 dark:text-brand-300">
                         {currentStage.title}
                       </span>
                     </div>
                   </>
                 ) : (
                   <>
-                    <div className="text-xs font-semibold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">
+                    <div className="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">
                       Protokol
                     </div>
                     <button
                       onClick={onOpenProtocolPicker}
-                      className="text-[clamp(32px,11vw,48px)] font-extrabold text-slate-900 dark:text-white leading-none active:scale-95"
+                      className="text-[clamp(40px,14vw,60px)] font-extrabold text-slate-900 dark:text-white leading-none active:scale-95"
                     >
                       {selectedProtocol.name}
                     </button>
-                    <div className="mt-3 text-xs text-slate-500 dark:text-slate-400 px-4">
+                    <div className="mt-3 text-sm text-slate-500 dark:text-slate-400 px-4">
                       {selectedProtocol.description}
                     </div>
                   </>
@@ -204,23 +204,23 @@ export const TodayView: React.FC<Props> = ({
         {activeSession && goalTime && (
           <div className="grid grid-cols-2 gap-4 mt-6 text-center">
             <div>
-              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Started</div>
+              <div className="text-sm font-bold text-slate-400 uppercase tracking-wider">Started</div>
               {editingStart ? (
                 <div className="flex gap-1 items-center justify-center mt-1">
                   <input
                     type="time"
                     autoFocus
-                    className="bg-slate-100 dark:bg-slate-700 rounded-lg px-2 py-1 text-sm"
+                    className="bg-slate-100 dark:bg-slate-700 rounded-lg px-2 py-1 text-base"
                     value={tempStart}
                     onChange={(e) => setTempStart(e.target.value)}
                   />
                   <button onClick={handleSaveStart} className="text-brand-800 p-1">
-                    <Icons.Check className="w-4 h-4" />
+                    <Icons.Check className="w-5 h-5" />
                   </button>
                 </div>
               ) : (
                 <>
-                  <div className="font-bold text-slate-900 dark:text-white mt-0.5">
+                  <div className="text-lg font-extrabold text-slate-900 dark:text-white mt-1">
                     {formatDayAndClock(activeSession.startTime)}
                   </div>
                   <button
@@ -228,7 +228,7 @@ export const TodayView: React.FC<Props> = ({
                       setTempStart(new Date(activeSession.startTime).toTimeString().slice(0, 5));
                       setEditingStart(true);
                     }}
-                    className="text-xs text-brand-800 dark:text-brand-300 font-semibold mt-0.5"
+                    className="text-sm text-brand-800 dark:text-brand-300 font-bold mt-1"
                   >
                     Edit Start
                   </button>
@@ -236,26 +236,26 @@ export const TodayView: React.FC<Props> = ({
               )}
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Goal</div>
+              <div className="text-sm font-bold text-slate-400 uppercase tracking-wider">Goal</div>
               {editingGoal ? (
                 <div className="flex gap-1 items-center justify-center mt-1">
                   <input
                     type="number"
                     autoFocus
-                    className="bg-slate-100 dark:bg-slate-700 rounded-lg px-2 py-1 text-sm w-16"
+                    className="bg-slate-100 dark:bg-slate-700 rounded-lg px-2 py-1 text-base w-16"
                     value={tempGoal}
                     onChange={(e) => setTempGoal(e.target.value)}
                     min={1}
                     max={96}
                   />
-                  <span className="text-sm">t</span>
+                  <span className="text-base">t</span>
                   <button onClick={handleSaveGoal} className="text-brand-800 p-1">
-                    <Icons.Check className="w-4 h-4" />
+                    <Icons.Check className="w-5 h-5" />
                   </button>
                 </div>
               ) : (
                 <>
-                  <div className="font-bold text-slate-900 dark:text-white mt-0.5">
+                  <div className="text-lg font-extrabold text-slate-900 dark:text-white mt-1">
                     {formatDayAndClock(goalTime)}
                   </div>
                   <button
@@ -263,7 +263,7 @@ export const TodayView: React.FC<Props> = ({
                       setTempGoal(String(activeSession.targetHours));
                       setEditingGoal(true);
                     }}
-                    className="text-xs text-brand-800 dark:text-brand-300 font-semibold mt-0.5"
+                    className="text-sm text-brand-800 dark:text-brand-300 font-bold mt-1"
                   >
                     Edit {activeSession.targetHours}h Goal
                   </button>
@@ -274,18 +274,18 @@ export const TodayView: React.FC<Props> = ({
         )}
 
         {/* Start / End button */}
-        <div className="mt-5 flex justify-center">
+        <div className="mt-6 flex justify-center">
           {activeSession ? (
             <button
               onClick={onStopFast}
-              className="bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 font-bold px-12 py-3.5 rounded-full active:scale-[0.98]"
+              className="bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 font-extrabold text-lg px-14 py-4 rounded-full active:scale-[0.98]"
             >
               End Fast
             </button>
           ) : (
             <button
               onClick={onStartFast}
-              className="bg-brand-800 text-white font-bold px-12 py-3.5 rounded-full active:scale-[0.98] shadow-lg shadow-brand-800/30"
+              className="bg-brand-800 text-white font-extrabold text-lg px-14 py-4 rounded-full active:scale-[0.98] shadow-lg shadow-brand-800/30"
             >
               Start faste
             </button>
@@ -296,18 +296,18 @@ export const TodayView: React.FC<Props> = ({
       {/* Add to your day */}
       <button
         onClick={onOpenMealLogger}
-        className="w-full bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm flex items-center gap-3 active:scale-[0.99]"
+        className="w-full bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm flex items-center gap-4 active:scale-[0.99]"
       >
-        <div className="w-10 h-10 rounded-full bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center text-brand-800">
-          <Icons.Plus className="w-5 h-5" strokeWidth={2.5} />
+        <div className="w-12 h-12 rounded-full bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center text-brand-800">
+          <Icons.Plus className="w-6 h-6" strokeWidth={2.5} />
         </div>
         <div className="text-left flex-1">
-          <div className="font-bold text-slate-900 dark:text-white">Tilføj til din dag</div>
-          <div className="text-xs text-slate-500 dark:text-slate-400">
+          <div className="font-extrabold text-lg text-slate-900 dark:text-white">Tilføj til din dag</div>
+          <div className="text-sm text-slate-500 dark:text-slate-400">
             Måltider, aktivitet, søvn eller mere
           </div>
         </div>
-        <Icons.ChevronRight className="w-5 h-5 text-slate-400" />
+        <Icons.ChevronRight className="w-6 h-6 text-slate-400" />
       </button>
 
       {/* Protein Score */}
@@ -331,15 +331,15 @@ export const TodayView: React.FC<Props> = ({
       </section>
 
       {/* Macros */}
-      <section className="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm">
+      <section className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm">
         <div className="grid grid-cols-2 divide-x divide-slate-200 dark:divide-slate-700">
           <div className="pr-4 text-center">
-            <div className="text-sm text-slate-500 dark:text-slate-400">Protein</div>
-            <div className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white tabular-nums">
+            <div className="text-base font-semibold text-slate-500 dark:text-slate-400">Protein</div>
+            <div className="mt-2 text-4xl font-extrabold text-slate-900 dark:text-white tabular-nums">
               {Math.round(dayProtein)}<span className="text-slate-400">/{profile.dailyProteinG}</span>
-              <span className="text-lg text-slate-400">g</span>
+              <span className="text-xl text-slate-400">g</span>
             </div>
-            <div className="mt-2 h-1.5 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div className="mt-3 h-2 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-500 rounded-full transition-all"
                 style={{ width: `${Math.min(100, (dayProtein / profile.dailyProteinG) * 100)}%` }}
@@ -347,11 +347,11 @@ export const TodayView: React.FC<Props> = ({
             </div>
           </div>
           <div className="pl-4 text-center">
-            <div className="text-sm text-slate-500 dark:text-slate-400">Kalorier</div>
-            <div className="mt-1 text-3xl font-extrabold text-slate-900 dark:text-white tabular-nums">
+            <div className="text-base font-semibold text-slate-500 dark:text-slate-400">Kalorier</div>
+            <div className="mt-2 text-4xl font-extrabold text-slate-900 dark:text-white tabular-nums">
               {Math.round(dayCalories)}
             </div>
-            <div className="mt-2 text-xs text-slate-400">
+            <div className="mt-3 text-sm text-slate-400">
               {todaysMeals.length} måltid{todaysMeals.length === 1 ? '' : 'er'} i dag
             </div>
           </div>
@@ -359,25 +359,25 @@ export const TodayView: React.FC<Props> = ({
       </section>
 
       {/* Water */}
-      <section className="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm">
+      <section className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm">
         <div className="flex items-center justify-between">
-          <div className="text-sm text-slate-500 dark:text-slate-400">Vand</div>
-          <Icons.Info className="w-4 h-4 text-slate-400" />
+          <div className="text-base font-semibold text-slate-500 dark:text-slate-400">Vand</div>
+          <Icons.Info className="w-5 h-5 text-slate-400" />
         </div>
         <div className="text-center mt-2">
-          <span className="text-5xl font-extrabold text-slate-900 dark:text-white tabular-nums">
+          <span className="text-6xl font-extrabold text-slate-900 dark:text-white tabular-nums">
             {dayWater}
           </span>
-          <span className="text-xl text-slate-400 font-bold">ml</span>
+          <span className="text-2xl text-slate-400 font-bold">ml</span>
         </div>
-        <div className="mt-4 flex items-center gap-3">
+        <div className="mt-5 flex items-center gap-3">
           <button
             onClick={() => onRemoveWater(250)}
-            className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95"
+            className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95"
           >
-            <Icons.Minus className="w-5 h-5" />
+            <Icons.Minus className="w-6 h-6" />
           </button>
-          <div className="flex-1 h-10 rounded-full bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
+          <div className="flex-1 h-12 rounded-full bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
             <div
               className="absolute inset-y-0 left-0 bg-sky-500 transition-all"
               style={{ width: `${Math.min(100, (dayWater / profile.dailyWaterMl) * 100)}%` }}
@@ -385,22 +385,22 @@ export const TodayView: React.FC<Props> = ({
           </div>
           <button
             onClick={() => onAddWater(250)}
-            className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95"
+            className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95"
           >
-            <Icons.Plus className="w-5 h-5" />
+            <Icons.Plus className="w-6 h-6" />
           </button>
         </div>
-        <div className="mt-2 flex justify-between text-xs text-slate-400">
+        <div className="mt-2 flex justify-between text-sm font-medium text-slate-400">
           <span>0ml</span>
           <span>{profile.dailyWaterMl}ml</span>
         </div>
       </section>
 
       {/* Meals */}
-      <section className="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="font-bold text-slate-900 dark:text-white">Dagens måltider</h3>
-          <span className="text-xs text-slate-500 dark:text-slate-400">
+      <section className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-extrabold text-lg text-slate-900 dark:text-white">Dagens måltider</h3>
+          <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">
             {todaysMeals.length} i dag
           </span>
         </div>

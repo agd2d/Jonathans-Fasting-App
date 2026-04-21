@@ -8,7 +8,7 @@ interface Props {
 
 const ItemIcon: React.FC<{ id: TabId; active: boolean }> = ({ id, active }) => {
   const color = active ? '#FF4E2B' : '#94a3b8';
-  const size = 26;
+  const size = 30;
   if (id === 'today') {
     return (
       <svg width={size} height={size} viewBox="0 0 24 24" fill="none">
@@ -51,11 +51,11 @@ export const BottomNav: React.FC<Props> = ({ active, onChange }) => (
           <button
             key={it.id}
             onClick={() => onChange(it.id)}
-            className="py-2.5 flex flex-col items-center gap-1 active:scale-95 transition-transform"
+            className="py-3 flex flex-col items-center gap-1.5 active:scale-95 transition-transform"
           >
             <ItemIcon id={it.id} active={isActive} />
             <span
-              className={`text-[11px] font-bold ${
+              className={`text-sm font-extrabold ${
                 isActive ? 'text-accent-500' : 'text-slate-400'
               }`}
             >

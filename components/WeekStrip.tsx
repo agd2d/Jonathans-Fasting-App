@@ -62,14 +62,14 @@ export const WeekStrip: React.FC<Props> = ({ sessions, activeStart }) => {
           .toLocaleDateString('da-DK', { weekday: 'short' })
           .replace('.', '')
           .toUpperCase();
-        const size = 28;
-        const radius = (size - 3) / 2;
+        const size = 40;
+        const radius = (size - 4) / 2;
         const circ = 2 * Math.PI * radius;
         const dashOffset = circ * (1 - pct);
         return (
-          <div key={iso} className="flex flex-col items-center gap-1">
+          <div key={iso} className="flex flex-col items-center gap-1.5">
             <span
-              className={`text-[10px] font-bold tracking-wider ${
+              className={`text-xs font-extrabold tracking-wider ${
                 isToday ? 'text-slate-900 dark:text-white' : 'text-slate-400'
               }`}
             >
@@ -82,7 +82,7 @@ export const WeekStrip: React.FC<Props> = ({ sessions, activeStart }) => {
                   cy={size / 2}
                   r={radius}
                   stroke={trackColor}
-                  strokeWidth={2}
+                  strokeWidth={3}
                   fill="transparent"
                 />
                 {pct > 0 && (
@@ -91,7 +91,7 @@ export const WeekStrip: React.FC<Props> = ({ sessions, activeStart }) => {
                     cy={size / 2}
                     r={radius}
                     stroke="#FF4E2B"
-                    strokeWidth={2.5}
+                    strokeWidth={3.5}
                     fill="transparent"
                     strokeLinecap="round"
                     strokeDasharray={circ}
@@ -101,7 +101,7 @@ export const WeekStrip: React.FC<Props> = ({ sessions, activeStart }) => {
               </svg>
               {isToday && (
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-1.5 h-1.5 rounded-full bg-slate-900 dark:bg-white" />
+                  <div className="w-2 h-2 rounded-full bg-slate-900 dark:bg-white" />
                 </div>
               )}
             </div>

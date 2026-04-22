@@ -76,7 +76,7 @@ export const CircularProgress: React.FC<Props> = ({
   const elapsedHours = elapsedMs / MS_PER_HOUR;
 
   return (
-    <div ref={wrapperRef} className="relative w-full max-w-[300px] mx-auto">
+    <div ref={wrapperRef} className="relative w-full max-w-[480px] mx-auto">
       <div
         className="relative flex items-center justify-center mx-auto"
         style={{ width: size, height: size }}

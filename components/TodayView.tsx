@@ -126,7 +126,7 @@ export const TodayView: React.FC<Props> = ({
   };
 
   return (
-    <div className="pb-32 px-4 pt-3 animate-fadein space-y-4">
+    <div className="pb-32 px-4 pt-4 animate-fadein space-y-5">
       {/* Top header */}
       <div className="grid grid-cols-[48px_1fr_48px] items-center">
         <button
@@ -152,12 +152,12 @@ export const TodayView: React.FC<Props> = ({
       <WeekStrip sessions={sessions} activeStart={activeSession?.startTime || null} />
 
       {/* Main timer card */}
-      <section className="bg-white dark:bg-slate-800 rounded-3xl p-3 sm:p-5 shadow-sm">
+      <section className="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 pb-10 shadow-sm">
         <div className="flex justify-center">
-          <div className={activeSession && !goalReached ? 'pulse-ring rounded-full' : ''}>
+          <div className={activeSession && !goalReached ? 'pulse-ring rounded-full w-full' : 'w-full'}>
             <CircularProgress
-              size={300}
-              stroke={18}
+              size={480}
+              stroke={22}
               progress={activeSession ? progress : 0}
               activeStage={currentStage}
               targetHours={activeSession ? activeSession.targetHours : selectedProtocol.fastHours}
@@ -166,31 +166,31 @@ export const TodayView: React.FC<Props> = ({
               <div className="flex flex-col items-center">
                 {activeSession ? (
                   <>
-                    <div className="text-base text-slate-500 dark:text-slate-400 font-semibold">
+                    <div className="text-lg text-slate-500 dark:text-slate-400 font-semibold">
                       {goalReached ? 'Mål nået!' : `Tilbage (${pctRemaining}%)`}
                     </div>
-                    <div className="text-[clamp(36px,12vw,56px)] leading-none font-extrabold tabular-nums text-slate-900 dark:text-white mt-2 whitespace-nowrap">
+                    <div className="text-[clamp(44px,15vw,72px)] leading-none font-extrabold tabular-nums text-slate-900 dark:text-white mt-3 whitespace-nowrap">
                       {goalReached ? `${elapsed.h}:${elapsed.m}:${elapsed.s}` : `${h}:${m}:${s}`}
                     </div>
-                    <div className="mt-3 flex items-center gap-2 bg-brand-50 dark:bg-slate-900/50 px-4 py-2 rounded-full">
-                      <span className="text-accent-500 text-base">{currentStage.emoji}</span>
-                      <span className="text-sm font-extrabold text-brand-800 dark:text-brand-300">
+                    <div className="mt-4 flex items-center gap-2 bg-brand-50 dark:bg-slate-900/50 px-5 py-2.5 rounded-full">
+                      <span className="text-accent-500 text-lg">{currentStage.emoji}</span>
+                      <span className="text-base font-extrabold text-brand-800 dark:text-brand-300">
                         {currentStage.title}
                       </span>
                     </div>
                   </>
                 ) : (
                   <>
-                    <div className="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">
+                    <div className="text-base font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-3">
                       Protokol
                     </div>
                     <button
                       onClick={onOpenProtocolPicker}
-                      className="text-[clamp(40px,14vw,60px)] font-extrabold text-slate-900 dark:text-white leading-none active:scale-95"
+                      className="text-[clamp(52px,18vw,80px)] font-extrabold text-slate-900 dark:text-white leading-none active:scale-95"
                     >
                       {selectedProtocol.name}
                     </button>
-                    <div className="mt-3 text-sm text-slate-500 dark:text-slate-400 px-4">
+                    <div className="mt-4 text-base text-slate-500 dark:text-slate-400 px-4">
                       {selectedProtocol.description}
                     </div>
                   </>
@@ -296,34 +296,34 @@ export const TodayView: React.FC<Props> = ({
       {/* Add to your day */}
       <button
         onClick={onOpenMealLogger}
-        className="w-full bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm flex items-center gap-4 active:scale-[0.99]"
+        className="w-full bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm flex items-center gap-5 active:scale-[0.99]"
       >
-        <div className="w-12 h-12 rounded-full bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center text-brand-800">
-          <Icons.Plus className="w-6 h-6" strokeWidth={2.5} />
+        <div className="w-16 h-16 rounded-full bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center text-brand-800 flex-shrink-0">
+          <Icons.Plus className="w-8 h-8" strokeWidth={2.5} />
         </div>
         <div className="text-left flex-1">
-          <div className="font-extrabold text-lg text-slate-900 dark:text-white">Tilføj til din dag</div>
-          <div className="text-sm text-slate-500 dark:text-slate-400">
+          <div className="font-extrabold text-2xl text-slate-900 dark:text-white">Tilføj til din dag</div>
+          <div className="text-base text-slate-500 dark:text-slate-400 mt-1">
             Måltider, aktivitet, søvn eller mere
           </div>
         </div>
-        <Icons.ChevronRight className="w-6 h-6 text-slate-400" />
+        <Icons.ChevronRight className="w-7 h-7 text-slate-400" />
       </button>
 
       {/* Protein Score */}
-      <section className="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm">
+      <section className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm">
         <div className="flex justify-center">
-          <ProteinScoreGauge score={score} />
+          <ProteinScoreGauge score={score} size={300} />
         </div>
-        <p className="text-sm text-slate-600 dark:text-slate-300 text-center mt-3 leading-relaxed">
+        <p className="text-base text-slate-600 dark:text-slate-300 text-center mt-6 leading-relaxed">
           {dayCalories === 0
             ? 'Du har ikke logget noget mad i dag. Tilføj det du har spist, så beregner vi din score og giver dig feedback.'
             : proteinScoreLabel(score)}
         </p>
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-6">
           <button
             onClick={onOpenMealLogger}
-            className="bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 font-bold px-6 py-2.5 rounded-full text-sm active:scale-95"
+            className="bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 font-extrabold px-8 py-3.5 rounded-full text-base active:scale-95"
           >
             Tilføj måltid
           </button>
@@ -331,15 +331,15 @@ export const TodayView: React.FC<Props> = ({
       </section>
 
       {/* Macros */}
-      <section className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm">
+      <section className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm">
         <div className="grid grid-cols-2 divide-x divide-slate-200 dark:divide-slate-700">
           <div className="pr-4 text-center">
-            <div className="text-base font-semibold text-slate-500 dark:text-slate-400">Protein</div>
-            <div className="mt-2 text-4xl font-extrabold text-slate-900 dark:text-white tabular-nums">
+            <div className="text-lg font-semibold text-slate-500 dark:text-slate-400">Protein</div>
+            <div className="mt-3 text-5xl font-extrabold text-slate-900 dark:text-white tabular-nums">
               {Math.round(dayProtein)}<span className="text-slate-400">/{profile.dailyProteinG}</span>
-              <span className="text-xl text-slate-400">g</span>
+              <span className="text-2xl text-slate-400">g</span>
             </div>
-            <div className="mt-3 h-2 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div className="mt-4 h-3 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-500 rounded-full transition-all"
                 style={{ width: `${Math.min(100, (dayProtein / profile.dailyProteinG) * 100)}%` }}
@@ -347,11 +347,11 @@ export const TodayView: React.FC<Props> = ({
             </div>
           </div>
           <div className="pl-4 text-center">
-            <div className="text-base font-semibold text-slate-500 dark:text-slate-400">Kalorier</div>
-            <div className="mt-2 text-4xl font-extrabold text-slate-900 dark:text-white tabular-nums">
+            <div className="text-lg font-semibold text-slate-500 dark:text-slate-400">Kalorier</div>
+            <div className="mt-3 text-5xl font-extrabold text-slate-900 dark:text-white tabular-nums">
               {Math.round(dayCalories)}
             </div>
-            <div className="mt-3 text-sm text-slate-400">
+            <div className="mt-4 text-base text-slate-400">
               {todaysMeals.length} måltid{todaysMeals.length === 1 ? '' : 'er'} i dag
             </div>
           </div>
@@ -359,25 +359,25 @@ export const TodayView: React.FC<Props> = ({
       </section>
 
       {/* Water */}
-      <section className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm">
+      <section className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm">
         <div className="flex items-center justify-between">
-          <div className="text-base font-semibold text-slate-500 dark:text-slate-400">Vand</div>
-          <Icons.Info className="w-5 h-5 text-slate-400" />
+          <div className="text-lg font-semibold text-slate-500 dark:text-slate-400">Vand</div>
+          <Icons.Info className="w-6 h-6 text-slate-400" />
         </div>
-        <div className="text-center mt-2">
-          <span className="text-6xl font-extrabold text-slate-900 dark:text-white tabular-nums">
+        <div className="text-center mt-4">
+          <span className="text-7xl font-extrabold text-slate-900 dark:text-white tabular-nums">
             {dayWater}
           </span>
-          <span className="text-2xl text-slate-400 font-bold">ml</span>
+          <span className="text-3xl text-slate-400 font-bold">ml</span>
         </div>
-        <div className="mt-5 flex items-center gap-3">
+        <div className="mt-8 flex items-center gap-4">
           <button
             onClick={() => onRemoveWater(250)}
-            className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95"
+            className="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95 flex-shrink-0"
           >
-            <Icons.Minus className="w-6 h-6" />
+            <Icons.Minus className="w-7 h-7" />
           </button>
-          <div className="flex-1 h-12 rounded-full bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
+          <div className="flex-1 h-14 rounded-full bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
             <div
               className="absolute inset-y-0 left-0 bg-sky-500 transition-all"
               style={{ width: `${Math.min(100, (dayWater / profile.dailyWaterMl) * 100)}%` }}
@@ -385,86 +385,86 @@ export const TodayView: React.FC<Props> = ({
           </div>
           <button
             onClick={() => onAddWater(250)}
-            className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95"
+            className="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95 flex-shrink-0"
           >
-            <Icons.Plus className="w-6 h-6" />
+            <Icons.Plus className="w-7 h-7" />
           </button>
         </div>
-        <div className="mt-2 flex justify-between text-sm font-medium text-slate-400">
+        <div className="mt-3 flex justify-between text-base font-semibold text-slate-400">
           <span>0ml</span>
           <span>{profile.dailyWaterMl}ml</span>
         </div>
       </section>
 
       {/* Meals */}
-      <section className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm">
-        <div className="flex items-center justify-between mb-4">
-          <h3 className="font-extrabold text-lg text-slate-900 dark:text-white">Dagens måltider</h3>
-          <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">
+      <section className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="font-extrabold text-2xl text-slate-900 dark:text-white">Dagens måltider</h3>
+          <span className="text-base font-semibold text-slate-500 dark:text-slate-400">
             {todaysMeals.length} i dag
           </span>
         </div>
         {todaysMeals.length === 0 ? (
-          <div className="text-center py-6">
+          <div className="text-center py-8">
             {/* Illustrative meal card stack */}
-            <div className="relative w-full max-w-xs mx-auto mb-4">
-              <div className="bg-slate-50 dark:bg-slate-900/40 rounded-2xl p-3 flex items-center gap-3 opacity-40 mb-2 translate-y-2 scale-95">
-                <div className="h-12 w-12 rounded-lg bg-slate-200 dark:bg-slate-700" />
+            <div className="relative w-full max-w-sm mx-auto mb-6">
+              <div className="bg-slate-50 dark:bg-slate-900/40 rounded-2xl p-4 flex items-center gap-4 opacity-40 mb-3 translate-y-2 scale-95">
+                <div className="h-14 w-14 rounded-lg bg-slate-200 dark:bg-slate-700" />
                 <div className="flex-1">
-                  <div className="h-3 w-24 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
-                  <div className="h-2 w-16 bg-slate-200 dark:bg-slate-700 rounded" />
+                  <div className="h-4 w-32 bg-slate-200 dark:bg-slate-700 rounded mb-2" />
+                  <div className="h-3 w-20 bg-slate-200 dark:bg-slate-700 rounded" />
                 </div>
               </div>
-              <div className="bg-white dark:bg-slate-800 rounded-2xl p-3 flex items-center gap-3 shadow border border-slate-200 dark:border-slate-700">
-                <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-amber-200 to-orange-400 flex items-center justify-center text-xl">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 flex items-center gap-4 shadow border border-slate-200 dark:border-slate-700">
+                <div className="h-14 w-14 rounded-lg bg-gradient-to-br from-amber-200 to-orange-400 flex items-center justify-center text-2xl">
                   🍗
                 </div>
-                <div className="flex-1">
-                  <div className="font-bold text-sm text-slate-900 dark:text-white">
+                <div className="flex-1 text-left">
+                  <div className="font-bold text-base text-slate-900 dark:text-white">
                     Grilled Chicken with Quinoa
                   </div>
-                  <div className="text-xs text-slate-500 dark:text-slate-400">
+                  <div className="text-sm text-slate-500 dark:text-slate-400">
                     45g protein · 520 kcal
                   </div>
                 </div>
               </div>
             </div>
-            <h4 className="font-bold text-slate-900 dark:text-white">Log dine måltider</h4>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1 mb-3 px-4">
+            <h4 className="font-extrabold text-xl text-slate-900 dark:text-white">Log dine måltider</h4>
+            <p className="text-base text-slate-500 dark:text-slate-400 mt-2 mb-5 px-2">
               Log hvad du spiser i dag, så vi kan tracke og beregne dit protein-indtag.
             </p>
             <button
               onClick={onOpenMealLogger}
-              className="bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 font-bold px-6 py-2.5 rounded-full text-sm active:scale-95"
+              className="bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 font-extrabold px-8 py-3.5 rounded-full text-base active:scale-95"
             >
               Log mad
             </button>
           </div>
         ) : (
-          <div className="space-y-2">
+          <div className="space-y-3">
             {todaysMeals.map((meal) => {
               const emoji = EXAMPLE_MEALS.find((e) => e.name === meal.name)?.emoji || '🍽️';
               return (
                 <div
                   key={meal.id}
-                  className="flex items-center gap-3 p-3 bg-slate-50 dark:bg-slate-900/40 rounded-xl"
+                  className="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900/40 rounded-xl"
                 >
-                  <div className="h-11 w-11 rounded-lg bg-gradient-to-br from-amber-100 to-orange-300 dark:from-amber-900/30 dark:to-orange-900/30 flex items-center justify-center text-xl flex-shrink-0">
+                  <div className="h-14 w-14 rounded-lg bg-gradient-to-br from-amber-100 to-orange-300 dark:from-amber-900/30 dark:to-orange-900/30 flex items-center justify-center text-2xl flex-shrink-0">
                     {emoji}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-semibold text-sm text-slate-900 dark:text-white truncate">
+                    <div className="font-bold text-base text-slate-900 dark:text-white truncate">
                       {meal.name}
                     </div>
-                    <div className="text-xs text-slate-500 dark:text-slate-400">
+                    <div className="text-sm text-slate-500 dark:text-slate-400">
                       {meal.proteinG}g protein · {meal.calories} kcal · {meal.time}
                     </div>
                   </div>
                   <button
                     onClick={() => onDeleteMeal(meal.id)}
-                    className="text-slate-400 hover:text-red-500 p-1"
+                    className="text-slate-400 hover:text-red-500 p-2"
                   >
-                    <Icons.Trash className="w-4 h-4" />
+                    <Icons.Trash className="w-5 h-5" />
                   </button>
                 </div>
               );
@@ -474,20 +474,20 @@ export const TodayView: React.FC<Props> = ({
       </section>
 
       {/* Expert tip */}
-      <section className="bg-white dark:bg-slate-800 rounded-2xl p-5 shadow-sm border border-slate-100 dark:border-slate-700">
-        <div className="flex gap-3">
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-brand-200 to-brand-400 flex-shrink-0 flex items-center justify-center text-xl font-extrabold text-brand-900">
+      <section className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-700">
+        <div className="flex gap-5">
+          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-200 to-brand-400 flex-shrink-0 flex items-center justify-center text-2xl font-extrabold text-brand-900">
             N
           </div>
           <div className="flex-1">
-            <div className="text-xs font-bold text-brand-800 dark:text-brand-300 uppercase tracking-wider">
+            <div className="text-sm font-extrabold text-brand-800 dark:text-brand-300 uppercase tracking-wider">
               Expert tip
             </div>
-            <h4 className="font-bold text-slate-900 dark:text-white mt-0.5">{expertTip.title}</h4>
-            <p className="text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+            <h4 className="font-extrabold text-xl text-slate-900 dark:text-white mt-1">{expertTip.title}</h4>
+            <p className="text-base text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
               {expertTip.body}
             </p>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 italic">
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-3 italic">
               — {expertTip.expert}
             </p>
           </div>
@@ -496,9 +496,9 @@ export const TodayView: React.FC<Props> = ({
 
       {/* Motivational when idle */}
       {!activeSession && (
-        <div className="bg-gradient-to-br from-brand-50 to-brand-100 dark:from-brand-900/20 dark:to-brand-900/40 rounded-2xl p-5 text-center">
-          <Icons.Zap className="w-6 h-6 text-brand-800 dark:text-brand-300 mx-auto mb-2" />
-          <p className="text-sm italic text-slate-700 dark:text-slate-200 leading-relaxed">
+        <div className="bg-gradient-to-br from-brand-50 to-brand-100 dark:from-brand-900/20 dark:to-brand-900/40 rounded-2xl p-8 text-center">
+          <Icons.Zap className="w-8 h-8 text-brand-800 dark:text-brand-300 mx-auto mb-3" />
+          <p className="text-lg italic text-slate-700 dark:text-slate-200 leading-relaxed">
             &ldquo;{quote}&rdquo;
           </p>
         </div>

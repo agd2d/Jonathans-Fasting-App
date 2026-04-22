@@ -128,23 +128,23 @@ export const TodayView: React.FC<Props> = ({
   return (
     <div className="pb-32 px-4 pt-4 animate-fadein space-y-5">
       {/* Top header */}
-      <div className="grid grid-cols-[48px_1fr_48px] items-center">
+      <div className="grid grid-cols-[56px_1fr_56px] items-center gap-3">
         <button
           onClick={onOpenProtocolPicker}
-          className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 active:scale-95"
+          className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-500 active:scale-95"
           aria-label="Vælg protokol"
         >
-          <Icons.Check className="w-6 h-6" />
+          <Icons.Check className="w-7 h-7" />
         </button>
-        <h2 className="text-center font-extrabold text-lg text-slate-900 dark:text-white">
+        <h2 className="text-center font-extrabold text-2xl text-slate-900 dark:text-white">
           {activeSession ? "You're fasting!" : 'Klar til at faste?'}
         </h2>
         <button
           onClick={onOpenMealLogger}
-          className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-brand-800 active:scale-95"
+          className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-brand-800 active:scale-95"
           aria-label="Log måltid"
         >
-          <Icons.Plus className="w-6 h-6" strokeWidth={2.5} />
+          <Icons.Plus className="w-7 h-7" strokeWidth={2.5} />
         </button>
       </div>
 
@@ -152,75 +152,74 @@ export const TodayView: React.FC<Props> = ({
       <WeekStrip sessions={sessions} activeStart={activeSession?.startTime || null} />
 
       {/* Main timer card */}
-      <section className="bg-white dark:bg-slate-800 rounded-3xl p-6 sm:p-8 pb-10 shadow-sm">
+      <section className="bg-white dark:bg-slate-800 rounded-3xl p-4 sm:p-6 pb-10 shadow-sm">
         <div className="flex justify-center">
-          <div className={activeSession && !goalReached ? 'pulse-ring rounded-full w-full' : 'w-full'}>
-            <CircularProgress
-              size={480}
-              stroke={22}
-              progress={activeSession ? progress : 0}
-              activeStage={currentStage}
-              targetHours={activeSession ? activeSession.targetHours : selectedProtocol.fastHours}
-              elapsedMs={elapsedMs}
-            >
-              <div className="flex flex-col items-center">
-                {activeSession ? (
-                  <>
-                    <div className="text-lg text-slate-500 dark:text-slate-400 font-semibold">
-                      {goalReached ? 'Mål nået!' : `Tilbage (${pctRemaining}%)`}
-                    </div>
-                    <div className="text-[clamp(44px,15vw,72px)] leading-none font-extrabold tabular-nums text-slate-900 dark:text-white mt-3 whitespace-nowrap">
-                      {goalReached ? `${elapsed.h}:${elapsed.m}:${elapsed.s}` : `${h}:${m}:${s}`}
-                    </div>
-                    <div className="mt-4 flex items-center gap-2 bg-brand-50 dark:bg-slate-900/50 px-5 py-2.5 rounded-full">
-                      <span className="text-accent-500 text-lg">{currentStage.emoji}</span>
-                      <span className="text-base font-extrabold text-brand-800 dark:text-brand-300">
-                        {currentStage.title}
-                      </span>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="text-base font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-3">
-                      Protokol
-                    </div>
-                    <button
-                      onClick={onOpenProtocolPicker}
-                      className="text-[clamp(52px,18vw,80px)] font-extrabold text-slate-900 dark:text-white leading-none active:scale-95"
-                    >
-                      {selectedProtocol.name}
-                    </button>
-                    <div className="mt-4 text-base text-slate-500 dark:text-slate-400 px-4">
-                      {selectedProtocol.description}
-                    </div>
-                  </>
-                )}
-              </div>
-            </CircularProgress>
-          </div>
+          <CircularProgress
+            size={520}
+            stroke={26}
+            progress={activeSession ? progress : 0}
+            activeStage={currentStage}
+            targetHours={activeSession ? activeSession.targetHours : selectedProtocol.fastHours}
+            elapsedMs={elapsedMs}
+            pulsing={!!activeSession && !goalReached}
+          >
+            <div className="flex flex-col items-center">
+              {activeSession ? (
+                <>
+                  <div className="text-xl text-slate-500 dark:text-slate-400 font-semibold">
+                    {goalReached ? 'Mål nået!' : `Tilbage (${pctRemaining}%)`}
+                  </div>
+                  <div className="text-[clamp(56px,18vw,96px)] leading-none font-extrabold tabular-nums text-slate-900 dark:text-white mt-4 whitespace-nowrap">
+                    {goalReached ? `${elapsed.h}:${elapsed.m}:${elapsed.s}` : `${h}:${m}:${s}`}
+                  </div>
+                  <div className="mt-5 flex items-center gap-2 bg-brand-50 dark:bg-slate-900/50 px-6 py-3 rounded-full">
+                    <span className="text-accent-500 text-xl">{currentStage.emoji}</span>
+                    <span className="text-lg font-extrabold text-brand-800 dark:text-brand-300">
+                      {currentStage.title}
+                    </span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="text-lg font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-4">
+                    Protokol
+                  </div>
+                  <button
+                    onClick={onOpenProtocolPicker}
+                    className="text-[clamp(64px,22vw,112px)] font-extrabold text-slate-900 dark:text-white leading-none active:scale-95"
+                  >
+                    {selectedProtocol.name}
+                  </button>
+                  <div className="mt-5 text-lg text-slate-500 dark:text-slate-400 px-4">
+                    {selectedProtocol.description}
+                  </div>
+                </>
+              )}
+            </div>
+          </CircularProgress>
         </div>
 
         {/* Started / Goal */}
         {activeSession && goalTime && (
-          <div className="grid grid-cols-2 gap-4 mt-6 text-center">
+          <div className="grid grid-cols-2 gap-4 mt-8 text-center">
             <div>
-              <div className="text-sm font-bold text-slate-400 uppercase tracking-wider">Started</div>
+              <div className="text-base font-bold text-slate-400 uppercase tracking-wider">Started</div>
               {editingStart ? (
-                <div className="flex gap-1 items-center justify-center mt-1">
+                <div className="flex gap-1 items-center justify-center mt-2">
                   <input
                     type="time"
                     autoFocus
-                    className="bg-slate-100 dark:bg-slate-700 rounded-lg px-2 py-1 text-base"
+                    className="bg-slate-100 dark:bg-slate-700 rounded-lg px-3 py-2 text-lg"
                     value={tempStart}
                     onChange={(e) => setTempStart(e.target.value)}
                   />
                   <button onClick={handleSaveStart} className="text-brand-800 p-1">
-                    <Icons.Check className="w-5 h-5" />
+                    <Icons.Check className="w-6 h-6" />
                   </button>
                 </div>
               ) : (
                 <>
-                  <div className="text-lg font-extrabold text-slate-900 dark:text-white mt-1">
+                  <div className="text-2xl font-extrabold text-slate-900 dark:text-white mt-2">
                     {formatDayAndClock(activeSession.startTime)}
                   </div>
                   <button
@@ -228,7 +227,7 @@ export const TodayView: React.FC<Props> = ({
                       setTempStart(new Date(activeSession.startTime).toTimeString().slice(0, 5));
                       setEditingStart(true);
                     }}
-                    className="text-sm text-brand-800 dark:text-brand-300 font-bold mt-1"
+                    className="text-base text-brand-800 dark:text-brand-300 font-bold mt-2"
                   >
                     Edit Start
                   </button>
@@ -236,26 +235,26 @@ export const TodayView: React.FC<Props> = ({
               )}
             </div>
             <div>
-              <div className="text-sm font-bold text-slate-400 uppercase tracking-wider">Goal</div>
+              <div className="text-base font-bold text-slate-400 uppercase tracking-wider">Goal</div>
               {editingGoal ? (
-                <div className="flex gap-1 items-center justify-center mt-1">
+                <div className="flex gap-1 items-center justify-center mt-2">
                   <input
                     type="number"
                     autoFocus
-                    className="bg-slate-100 dark:bg-slate-700 rounded-lg px-2 py-1 text-base w-16"
+                    className="bg-slate-100 dark:bg-slate-700 rounded-lg px-3 py-2 text-lg w-20"
                     value={tempGoal}
                     onChange={(e) => setTempGoal(e.target.value)}
                     min={1}
                     max={96}
                   />
-                  <span className="text-base">t</span>
+                  <span className="text-lg">t</span>
                   <button onClick={handleSaveGoal} className="text-brand-800 p-1">
-                    <Icons.Check className="w-5 h-5" />
+                    <Icons.Check className="w-6 h-6" />
                   </button>
                 </div>
               ) : (
                 <>
-                  <div className="text-lg font-extrabold text-slate-900 dark:text-white mt-1">
+                  <div className="text-2xl font-extrabold text-slate-900 dark:text-white mt-2">
                     {formatDayAndClock(goalTime)}
                   </div>
                   <button
@@ -263,7 +262,7 @@ export const TodayView: React.FC<Props> = ({
                       setTempGoal(String(activeSession.targetHours));
                       setEditingGoal(true);
                     }}
-                    className="text-sm text-brand-800 dark:text-brand-300 font-bold mt-1"
+                    className="text-base text-brand-800 dark:text-brand-300 font-bold mt-2"
                   >
                     Edit {activeSession.targetHours}h Goal
                   </button>
@@ -274,18 +273,18 @@ export const TodayView: React.FC<Props> = ({
         )}
 
         {/* Start / End button */}
-        <div className="mt-6 flex justify-center">
+        <div className="mt-8 flex justify-center">
           {activeSession ? (
             <button
               onClick={onStopFast}
-              className="bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 font-extrabold text-lg px-14 py-4 rounded-full active:scale-[0.98]"
+              className="bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 font-extrabold text-2xl px-16 py-5 rounded-full active:scale-[0.98]"
             >
               End Fast
             </button>
           ) : (
             <button
               onClick={onStartFast}
-              className="bg-brand-800 text-white font-extrabold text-lg px-14 py-4 rounded-full active:scale-[0.98] shadow-lg shadow-brand-800/30"
+              className="bg-brand-800 text-white font-extrabold text-2xl px-16 py-5 rounded-full active:scale-[0.98] shadow-lg shadow-brand-800/30"
             >
               Start faste
             </button>
@@ -296,34 +295,34 @@ export const TodayView: React.FC<Props> = ({
       {/* Add to your day */}
       <button
         onClick={onOpenMealLogger}
-        className="w-full bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm flex items-center gap-5 active:scale-[0.99]"
+        className="w-full bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm flex items-center gap-5 active:scale-[0.99]"
       >
-        <div className="w-16 h-16 rounded-full bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center text-brand-800 flex-shrink-0">
-          <Icons.Plus className="w-8 h-8" strokeWidth={2.5} />
+        <div className="w-20 h-20 rounded-full bg-brand-50 dark:bg-brand-900/30 flex items-center justify-center text-brand-800 flex-shrink-0">
+          <Icons.Plus className="w-10 h-10" strokeWidth={2.5} />
         </div>
-        <div className="text-left flex-1">
-          <div className="font-extrabold text-2xl text-slate-900 dark:text-white">Tilføj til din dag</div>
-          <div className="text-base text-slate-500 dark:text-slate-400 mt-1">
+        <div className="text-left flex-1 min-w-0">
+          <div className="font-extrabold text-3xl text-slate-900 dark:text-white">Tilføj til din dag</div>
+          <div className="text-lg text-slate-500 dark:text-slate-400 mt-1">
             Måltider, aktivitet, søvn eller mere
           </div>
         </div>
-        <Icons.ChevronRight className="w-7 h-7 text-slate-400" />
+        <Icons.ChevronRight className="w-8 h-8 text-slate-400 flex-shrink-0" />
       </button>
 
       {/* Protein Score */}
-      <section className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm">
+      <section className="bg-white dark:bg-slate-800 rounded-2xl p-6 shadow-sm">
         <div className="flex justify-center">
-          <ProteinScoreGauge score={score} size={300} />
+          <ProteinScoreGauge score={score} size={340} />
         </div>
-        <p className="text-base text-slate-600 dark:text-slate-300 text-center mt-6 leading-relaxed">
+        <p className="text-xl text-slate-600 dark:text-slate-300 text-center mt-8 leading-relaxed">
           {dayCalories === 0
             ? 'Du har ikke logget noget mad i dag. Tilføj det du har spist, så beregner vi din score og giver dig feedback.'
             : proteinScoreLabel(score)}
         </p>
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center mt-8">
           <button
             onClick={onOpenMealLogger}
-            className="bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 font-extrabold px-8 py-3.5 rounded-full text-base active:scale-95"
+            className="bg-brand-50 dark:bg-brand-900/30 text-brand-800 dark:text-brand-300 font-extrabold px-10 py-4 rounded-full text-xl active:scale-95"
           >
             Tilføj måltid
           </button>
@@ -333,25 +332,25 @@ export const TodayView: React.FC<Props> = ({
       {/* Macros */}
       <section className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm">
         <div className="grid grid-cols-2 divide-x divide-slate-200 dark:divide-slate-700">
-          <div className="pr-4 text-center">
-            <div className="text-lg font-semibold text-slate-500 dark:text-slate-400">Protein</div>
-            <div className="mt-3 text-5xl font-extrabold text-slate-900 dark:text-white tabular-nums">
+          <div className="pr-3 text-center">
+            <div className="text-xl font-semibold text-slate-500 dark:text-slate-400">Protein</div>
+            <div className="mt-4 text-[clamp(36px,10vw,56px)] leading-none font-extrabold text-slate-900 dark:text-white tabular-nums">
               {Math.round(dayProtein)}<span className="text-slate-400">/{profile.dailyProteinG}</span>
-              <span className="text-2xl text-slate-400">g</span>
+              <span className="text-3xl text-slate-400">g</span>
             </div>
-            <div className="mt-4 h-3 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div className="mt-5 h-4 w-full bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
               <div
                 className="h-full bg-brand-500 rounded-full transition-all"
                 style={{ width: `${Math.min(100, (dayProtein / profile.dailyProteinG) * 100)}%` }}
               />
             </div>
           </div>
-          <div className="pl-4 text-center">
-            <div className="text-lg font-semibold text-slate-500 dark:text-slate-400">Kalorier</div>
-            <div className="mt-3 text-5xl font-extrabold text-slate-900 dark:text-white tabular-nums">
+          <div className="pl-3 text-center">
+            <div className="text-xl font-semibold text-slate-500 dark:text-slate-400">Kalorier</div>
+            <div className="mt-4 text-[clamp(36px,10vw,56px)] leading-none font-extrabold text-slate-900 dark:text-white tabular-nums">
               {Math.round(dayCalories)}
             </div>
-            <div className="mt-4 text-base text-slate-400">
+            <div className="mt-5 text-lg text-slate-400">
               {todaysMeals.length} måltid{todaysMeals.length === 1 ? '' : 'er'} i dag
             </div>
           </div>
@@ -361,23 +360,23 @@ export const TodayView: React.FC<Props> = ({
       {/* Water */}
       <section className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm">
         <div className="flex items-center justify-between">
-          <div className="text-lg font-semibold text-slate-500 dark:text-slate-400">Vand</div>
-          <Icons.Info className="w-6 h-6 text-slate-400" />
+          <div className="text-2xl font-bold text-slate-600 dark:text-slate-300">Vand</div>
+          <Icons.Info className="w-7 h-7 text-slate-400" />
         </div>
-        <div className="text-center mt-4">
-          <span className="text-7xl font-extrabold text-slate-900 dark:text-white tabular-nums">
+        <div className="text-center mt-6">
+          <span className="text-[clamp(64px,20vw,112px)] leading-none font-extrabold text-slate-900 dark:text-white tabular-nums">
             {dayWater}
           </span>
-          <span className="text-3xl text-slate-400 font-bold">ml</span>
+          <span className="text-4xl text-slate-400 font-bold ml-1">ml</span>
         </div>
-        <div className="mt-8 flex items-center gap-4">
+        <div className="mt-10 flex items-center gap-4">
           <button
             onClick={() => onRemoveWater(250)}
-            className="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95 flex-shrink-0"
+            className="w-20 h-20 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95 flex-shrink-0"
           >
-            <Icons.Minus className="w-7 h-7" />
+            <Icons.Minus className="w-9 h-9" />
           </button>
-          <div className="flex-1 h-14 rounded-full bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
+          <div className="flex-1 h-16 rounded-full bg-slate-100 dark:bg-slate-700 relative overflow-hidden">
             <div
               className="absolute inset-y-0 left-0 bg-sky-500 transition-all"
               style={{ width: `${Math.min(100, (dayWater / profile.dailyWaterMl) * 100)}%` }}
@@ -385,12 +384,12 @@ export const TodayView: React.FC<Props> = ({
           </div>
           <button
             onClick={() => onAddWater(250)}
-            className="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95 flex-shrink-0"
+            className="w-20 h-20 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-500 active:scale-95 flex-shrink-0"
           >
-            <Icons.Plus className="w-7 h-7" />
+            <Icons.Plus className="w-9 h-9" />
           </button>
         </div>
-        <div className="mt-3 flex justify-between text-base font-semibold text-slate-400">
+        <div className="mt-4 flex justify-between text-lg font-semibold text-slate-400">
           <span>0ml</span>
           <span>{profile.dailyWaterMl}ml</span>
         </div>
@@ -399,8 +398,8 @@ export const TodayView: React.FC<Props> = ({
       {/* Meals */}
       <section className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm">
         <div className="flex items-center justify-between mb-6">
-          <h3 className="font-extrabold text-2xl text-slate-900 dark:text-white">Dagens måltider</h3>
-          <span className="text-base font-semibold text-slate-500 dark:text-slate-400">
+          <h3 className="font-extrabold text-3xl text-slate-900 dark:text-white">Dagens måltider</h3>
+          <span className="text-lg font-semibold text-slate-500 dark:text-slate-400">
             {todaysMeals.length} i dag
           </span>
         </div>
@@ -476,18 +475,18 @@ export const TodayView: React.FC<Props> = ({
       {/* Expert tip */}
       <section className="bg-white dark:bg-slate-800 rounded-2xl p-8 shadow-sm border border-slate-100 dark:border-slate-700">
         <div className="flex gap-5">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-brand-200 to-brand-400 flex-shrink-0 flex items-center justify-center text-2xl font-extrabold text-brand-900">
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-brand-200 to-brand-400 flex-shrink-0 flex items-center justify-center text-3xl font-extrabold text-brand-900">
             N
           </div>
-          <div className="flex-1">
-            <div className="text-sm font-extrabold text-brand-800 dark:text-brand-300 uppercase tracking-wider">
+          <div className="flex-1 min-w-0">
+            <div className="text-base font-extrabold text-brand-800 dark:text-brand-300 uppercase tracking-wider">
               Expert tip
             </div>
-            <h4 className="font-extrabold text-xl text-slate-900 dark:text-white mt-1">{expertTip.title}</h4>
-            <p className="text-base text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
+            <h4 className="font-extrabold text-2xl text-slate-900 dark:text-white mt-2">{expertTip.title}</h4>
+            <p className="text-lg text-slate-600 dark:text-slate-300 mt-3 leading-relaxed">
               {expertTip.body}
             </p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-3 italic">
+            <p className="text-base text-slate-500 dark:text-slate-400 mt-4 italic">
               — {expertTip.expert}
             </p>
           </div>

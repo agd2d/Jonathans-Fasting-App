@@ -9,6 +9,7 @@ interface Props {
   activeStage: FastStage;
   targetHours: number;
   elapsedMs: number;
+  pulsing?: boolean;
   children?: React.ReactNode;
 }
 
@@ -26,6 +27,7 @@ export const CircularProgress: React.FC<Props> = ({
   activeStage,
   targetHours,
   elapsedMs,
+  pulsing = false,
   children
 }) => {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -70,15 +72,15 @@ export const CircularProgress: React.FC<Props> = ({
   const cx = size / 2;
   const cy = size / 2;
 
-  const markerSize = Math.max(24, Math.round((32 * size) / maxSize));
+  const markerSize = Math.max(32, Math.round((44 * size) / maxSize));
 
   const visibleStages = FAST_STAGES.filter((s) => s.hours <= targetHours);
   const elapsedHours = elapsedMs / MS_PER_HOUR;
 
   return (
-    <div ref={wrapperRef} className="relative w-full max-w-[480px] mx-auto">
+    <div ref={wrapperRef} className="relative w-full max-w-[480px] mx-auto" style={{ height: size }}>
       <div
-        className="relative flex items-center justify-center mx-auto"
+        className={`relative flex items-center justify-center mx-auto ${pulsing ? 'pulse-ring rounded-full' : ''}`}
         style={{ width: size, height: size }}
       >
         <svg width={size} height={size} className="-rotate-90">
@@ -122,18 +124,18 @@ export const CircularProgress: React.FC<Props> = ({
                 top: y - markerSize / 2
               }}
             >
-              <span className="text-base leading-none">{stage.emoji}</span>
+              <span className="text-xl leading-none">{stage.emoji}</span>
             </div>
           );
         })}
 
         <div
-          className="absolute text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-600 rounded-full flex items-center justify-center border-2 border-white dark:border-slate-800 shadow"
+          className="absolute text-base font-extrabold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-600 rounded-full flex items-center justify-center border-2 border-white dark:border-slate-800 shadow"
           style={{
-            width: markerSize + 8,
-            height: markerSize + 8,
-            left: cx + radius - (markerSize + 8) / 3,
-            top: cy - (markerSize + 8) / 2
+            width: markerSize + 10,
+            height: markerSize + 10,
+            left: cx + radius - (markerSize + 10) / 3,
+            top: cy - (markerSize + 10) / 2
           }}
         >
           {targetHours}
